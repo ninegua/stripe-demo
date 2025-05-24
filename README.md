@@ -36,9 +36,13 @@ For local deployment:
   mops install
   ```
 3. Create an account with Stripe if not already registered.
-4. Create a testing payment link in Stripe.
+4. Create a testing payment link in Stripe. 
    In "After payment" tab, choose "Don't show confirmation page", and fill in a redirection link
    `http://localhost:8080/?check_out_session_id={CHECKOUT_SESSION_ID}`
+   After the link is created, append the URL to file `.env` in this repository's directory like this (replace `xxxx` with your actual link)
+  ```
+  echo STRIPE_PAYMENT_LINK=https://buy.stripe.com/test_xxxx >> .env
+  ```
 5. Create a restricted key in Stripe that has read access to "Checkout Sessions".
 6. Deploy the backend canister with init argument (fill in the key created in the step above):
   ```

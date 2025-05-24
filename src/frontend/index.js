@@ -35,7 +35,7 @@ function stopChecking(json) {
     logLine("Status: " + v.payment_status);
     logLine("Currency: " + v.currency);
     logLine("Amount: " + v.amount_total / 100);
-    logLine("Reference id: " + v.client_reference_id);
+    logLine("client_reference_id: " + v.client_reference_id);
   }
   if (json.status == "failed") {
     logLine(json.value);

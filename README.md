@@ -61,7 +61,10 @@ Basic workflow is:
 
 ## Deploy on IC mainnet
 
-Besides passing `--ic` to `dfx` command line, you'll need to change the redirection to point to the frontend canister URL on IC.
+Besides passing flag `--ic` to `dfx` commands, you'll need to change the redirection to point to the frontend canister URL on IC (c.f. the output of the command below).
+```
+echo "https://$(dfx canister id stripe_frontend --ic).icp0.io/?check_out_session_id={CHECKOUT_SESSION_ID}"
+```
 
 Also, the backend canister needs be configured to use a proxy to call Stripe because Stripe doesn't support IPv6 yet.
 This can be done by deploying the backend canister with an optional `idemponent_proxy` argument.

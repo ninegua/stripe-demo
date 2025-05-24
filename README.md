@@ -67,8 +67,10 @@ Also, the backend canister needs be configured to use a proxy to call Stripe bec
 This can be done by deploying the backend canister with optional `idemponent_proxy` argument.
 If you haven't deployed the [idempotent proxy] yourself, you can use the one provided by ICPandaDAO, as shown below
 ```
-dfx deploy stripe_backend --argument '(record { api_host = "api.stripe.com"; api_key = "..."; \
-  idempotent_proxy = opt "idempotent-proxy-cf-worker.zensh.workers.dev" })
+dfx deploy stripe_backend --argument '(record { \
+  api_host = "api.stripe.com"; \
+  api_key = "..."; \
+  idempotent_proxy = opt "idempotent-proxy-cf-worker.zensh.workers.dev" })'
 ```
 
 [idempotent proxy]: https://github.com/ldclabs/idempotent-proxy

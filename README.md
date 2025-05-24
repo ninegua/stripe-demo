@@ -39,20 +39,20 @@ For local deployment:
 4. Create a testing payment link in Stripe. 
    In "After payment" tab, choose "Don't show confirmation page", and fill in a redirection link
    `http://localhost:8080/?check_out_session_id={CHECKOUT_SESSION_ID}`
-   After the link is created, append the URL to file `.env` in this repository's directory like this (replace `xxxx` with your actual link)
+5. After the link is created, append the URL to file `.env` in this repository's directory like this (replace `xxxx` with your actual link)
   ```
   echo STRIPE_PAYMENT_LINK=https://buy.stripe.com/test_xxxx >> .env
   ```
-5. Create a restricted key in Stripe that has read access to "Checkout Sessions".
-6. Deploy the backend canister with init argument (fill in the key created in the step above):
+6. Create a restricted key in Stripe that has read access to "Checkout Sessions".
+7. Deploy the backend canister with init argument (fill in the key created in the step above):
   ```
   dfx deploy stripe_backend --argument '(record { api_host = "api.stripe.com"; api_key = "..." })
   ```
-7. Run frontend as a webpack dev server. By default it runs on port 8080.
+8. Run frontend as a webpack dev server. By default it runs on port 8080.
   ```
   npm run dev
   ```
-8. Visit frontend URL http://localhost:8080/ in a browser.
+9. Visit frontend URL http://localhost:8080/ in a browser.
 
 Basic workflow is:
 

@@ -1,3 +1,4 @@
+const paymentLink = process.env.STRIPE_PAYMENT_LINK;
 const backend = process.env.CANISTER_ID_STRIPE_BACKEND;
 const backendURL =
   process.env.DFX_NETWORK == "local"
@@ -29,7 +30,7 @@ function stopChecking(json) {
   console.log(json);
   if (checking) clearTimeout(checking);
   if (json.status == "completed") {
-    let v = json.value;
+    const v = json.value;
     logLine("Created: " + new Date(v.created * 1000).toLocaleString());
     logLine("Status: " + v.payment_status);
     logLine("Currency: " + v.currency);
@@ -56,14 +57,14 @@ function stopChecking(json) {
   };
 }
 
-async function fetchSessionStatus(session_id) {
+async function fetchSessionStatus(sessionId) {
   try {
-    const response = await fetch(`${backendURL}/checkout/${session_id}`);
+    const response = await fetch(`${backendURL}/checkout/${sessionId}`);
     if (response.ok) {
       const data = await response.json();
       if (data.status == "checking") {
         setTimeout(() => {
-          fetchSessionStatus(session_id);
+          fetchSessionStatus(sessionId);
         }, 500);
       } else {
         stopChecking(data);
@@ -81,16 +82,17 @@ async function fetchSessionStatus(session_id) {
 
 function start() {
   document.getElementById("pay").onclick = () => {
-    window.location.href =
-      "https://buy.stripe.com/test_7sY3cwg5y8k20Yb1P29oc01";
+    const now = Math.floor(Date.now() / 1000);
+    const clientId = now + "-" + Math.random().toString().substr(2, 8);
+    window.location.href = `${paymentLink}?client_reference_id=${clientId}`;
   };
   const currentUrl = window.location.href;
   const params = new URLSearchParams(new URL(currentUrl).search);
-  const session_id = params.get("checkout_session_id");
-  if (session_id) {
-    console.log("session_id", session_id);
+  const sessionId = params.get("checkout_session_id");
+  if (sessionId) {
+    console.log("session_id", sessionId);
     startChecking();
-    fetchSessionStatus(session_id);
+    fetchSessionStatus(sessionId);
   }
 }
 

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Stripe Demo</title>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+    <style>
+      #log {
+        font-family: monospace;
+        font-size: 80%;
+        a {
+          cursor: pointer;
+        }
+      }
+      #pay {
+        margin: 4px;
+        width: 80px;
+      }
+      .floatright {
+        width: 30%;
+        float: right;
+        padding: 0px 15px 10px 0px;
+      }
+      #pay {
+        width: 30em;
+        min-width: 5em;
+      }
+      small {
+        color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Stripe Demo</h1>
+    </header>
+    <main>
+      <section>
+        <div class="floatright">
+          <button id="pay">Pay</button>
+        </div>
+        Click the button to the right to make a test payment.<br />
+        <small>Hint: use credit card 4242 4242 4242 4242.</small><br />
+        Then status of the amount will be shown below.<br />
+      </section>
+      <p class="notice" id="log" hidden></p>
+    </main>
+  </body>
+</html>

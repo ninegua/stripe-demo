@@ -1,0 +1,4 @@
+[dependencies]
+base = "0.14.11"
+json = "1.2.1"
+base-x-encoder = "0.1.0"

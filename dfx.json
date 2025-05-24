@@ -1,0 +1,23 @@
+{
+  "canisters": {
+    "stripe_backend": {
+      "main": "src/backend/main.mo",
+      "type": "motoko"
+    },
+    "stripe_frontend": {
+      "dependencies": [
+        "stripe_backend"
+      ],
+      "source": [
+        "dist"
+      ],
+      "type": "assets"
+    }
+  },
+  "defaults": {
+    "build": {
+      "packtool": "mops sources"
+    }
+  },
+  "output_env_file": ".env"
+}

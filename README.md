@@ -29,26 +29,26 @@ For local deployment:
   ```
   dfx start --background
   ```
-1. Prepare depdenency packages
+2. Prepare depdenency packages
   ```
   npm install
   export PATH=$PWD/node_modules/.bin:$PATH
   mops install
   ```
-1. Create an account with Stripe if not already registered.
-1. Create a testing payment link in Stripe.
+3. Create an account with Stripe if not already registered.
+4. Create a testing payment link in Stripe.
    In "After payment" tab, choose "Don't show confirmation page", and fill in a redirection link
    `http://localhost:8080/?check_out_session_id={CHECKOUT_SESSION_ID}`
-1. Create a restricted key in Stripe that has read access to "Checkout Sessions".
-1. Deploy the backend canister with init argument (fill in the key created in the step above):
+5. Create a restricted key in Stripe that has read access to "Checkout Sessions".
+6. Deploy the backend canister with init argument (fill in the key created in the step above):
   ```
   dfx deploy stripe_backend --argument '(record { api_host = "api.stripe.com"; api_key = "..." })
   ```
-1. Use webpack dev server to run frontend
+7. Use webpack dev server to run frontend
   ```
   npm run dev
   ```
-1. Visit frontend URL http://localhost:8080/ in a browser.
+8. Visit frontend URL http://localhost:8080/ in a browser.
 
 Basic workflow is:
 

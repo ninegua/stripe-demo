@@ -17,11 +17,11 @@ They both have downsides:
 
 1. Method 1 is less secure because the master key is stored in a canister's heap memory, and if anyone manages to obtain this key, they can forge `stripe-signature` for fake payments.
 
-2. Method 2 requires canisters making HTTPs outcalls to an [idempotent proxy](https://github.com/ldclabs/idempotent-proxy) that supports IPv6, because api.stripe.com only supports IPv4.
+2. Method 2 requires canisters making HTTPs outcalls to an [idempotent proxy] that supports IPv6, because api.stripe.com only supports IPv4.
 
 ## Method 1: Stripe notifies canister via a webhook
 
-## Method 2: Canister pulls Stripe with a checkout session id
+## Method 2: canister calls Stripe to lookup checkout session
 
 For local deployment:
 
@@ -29,7 +29,7 @@ For local deployment:
   ```
   dfx start --background
   ```
-2. Prepare depdenency packages
+2. Prepare dependency packages
   ```
   npm install
   export PATH=$PWD/node_modules/.bin:$PATH
@@ -44,7 +44,7 @@ For local deployment:
   ```
   dfx deploy stripe_backend --argument '(record { api_host = "api.stripe.com"; api_key = "..." })
   ```
-7. Use webpack dev server to run frontend
+7. Run frontend as a webpack dev server. By default it runs on port 8080.
   ```
   npm run dev
   ```
@@ -56,5 +56,19 @@ Basic workflow is:
 2. User finishes payment on Stripe's page.
 3. Stripe redirects user back to localhost with a `checkout_session_id`.
 4. Frontend calls backend canister via a HTTP endpoint and pass it the `checkout_session_id`.
-5. Backend upgrades the query call to upgrade call, and makes a HTTPs outcall to api.stripe.com to fetch data.
+5. Backend upgrades the query call to upgrade call, and makes a HTTPs outcall to `api.stripe.com` to fetch data.
 6. Frontend keeps polling backend until backend gets data from stripe and returns it to frontend.
+
+## Deploy on IC mainnet
+
+Besides passing `--ic` to `dfx` command line, you'll need to change the redirection to point to the frontend canister URL on IC.
+
+Also, the backend canister needs be configured to use a proxy to call Stripe because Stripe doesn't support IPv6 yet.
+This can be done by deploying the backend canister with optional `idemponent_proxy` argument.
+If you haven't deployed the [idempotent proxy] yourself, you can use the one provided by ICPandaDAO, as shown below
+```
+dfx deploy stripe_backend --argument '(record { api_host = "api.stripe.com"; api_key = "..."; \
+  idempotent_proxy = opt "idempotent-proxy-cf-worker.zensh.workers.dev" })
+```
+
+[idempotent proxy]: https://github.com/ldclabs/idempotent-proxy

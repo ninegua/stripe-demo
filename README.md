@@ -64,10 +64,10 @@ Basic workflow is:
 Besides passing `--ic` to `dfx` command line, you'll need to change the redirection to point to the frontend canister URL on IC.
 
 Also, the backend canister needs be configured to use a proxy to call Stripe because Stripe doesn't support IPv6 yet.
-This can be done by deploying the backend canister with optional `idemponent_proxy` argument.
-If you haven't deployed the [idempotent proxy] yourself, you can use the one provided by ICPandaDAO, as shown below
+This can be done by deploying the backend canister with an optional `idemponent_proxy` argument.
+If you haven't deployed the [idempotent proxy] yourself, you can use the one provided by its author, as shown below:
 ```
-dfx deploy stripe_backend --argument '(record { \
+dfx deploy --ic stripe_backend --argument '(record { \
   api_host = "api.stripe.com"; \
   api_key = "..."; \
   idempotent_proxy = opt "idempotent-proxy-cf-worker.zensh.workers.dev" })'

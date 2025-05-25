@@ -39,7 +39,7 @@ For local deployment:
 4. Create a testing payment link in Stripe. 
    In "After payment" tab, choose "Don't show confirmation page", and fill in a redirection link
    `http://localhost:8080/?check_out_session_id={CHECKOUT_SESSION_ID}`
-5. After the link is created, append the URL to file `.env` in this repository's directory like this (replace `xxxx` with your actual link)
+5. After the link is created, append the URL to file `.env` in this repository's directory like this (replace `xxxx` with your actual link id)
   ```
   echo STRIPE_PAYMENT_LINK=https://buy.stripe.com/test_xxxx >> .env
   ```

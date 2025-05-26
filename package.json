@@ -4,8 +4,6 @@
     "dev": "webpack serve --host 0.0.0.0 --mode development --env development"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.27.2",
-    "babel-loader": "^10.0.0",
     "dotenv-webpack": "^8.1.0",
     "html-webpack-plugin": "^5.6.3",
     "ic-mops": "^1.7.1",

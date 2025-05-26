@@ -10,7 +10,7 @@ There are two ways to know if a successful payment is made:
 
 2. Find out the `checkout_session_id` (or `payment_intent_id`) associated with the user's payment, and call Stripe's web service API to lookup payment details.
 
-method 1 requires you to verify the a signature (embedded in the `stripe-signature` header) of the message using a master secret key,
+method 1 requires you to verify a signature (embedded in the `stripe-signature` header) of the message using a master secret key,
 while method 2 only requires a read-only key of limited scope.
 
 They both have downsides:
@@ -46,9 +46,9 @@ For local deployment:
 6. Create a restricted key in Stripe that has read access to "Checkout Sessions".
 7. Deploy the backend canister with init argument (fill in the key created in the step above):
   ```
-  dfx deploy stripe_backend --argument '(record { api_host = "api.stripe.com"; api_key = "..." })
+  dfx deploy stripe_backend --argument '(record { api_host = "api.stripe.com"; api_key = "..." })'
   ```
-8. Run frontend as a webpack dev server. By default it runs on port 8080.
+8. Run the frontend as a webpack dev server. By default it runs on port 8080.
   ```
   npm run dev
   ```
@@ -56,7 +56,7 @@ For local deployment:
 
 Basic workflow is:
 
-1. User clicks the pay button, a random `client_reference_id` is generated, and user is redirected to the Stripe page with the this id.
+1. User clicks the pay button, the frontend generates a random `client_reference_id` and redirects the user to the Stripe payment web page with this id.
 2. User finishes payment on Stripe's page.
 3. Stripe redirects user back to localhost with a `checkout_session_id`.
 4. Frontend calls backend canister via a HTTP endpoint and pass it the `checkout_session_id`.
@@ -65,7 +65,7 @@ Basic workflow is:
 
 ## Deploy on IC mainnet
 
-Besides passing flag `--ic` to `dfx` commands, you'll need to change the redirection to point to the frontend canister URL on IC (c.f. the output of the command below).
+Besides passing flag `--ic` to `dfx` commands, you'll need to change the payment link redirection to point to the frontend canister URL on IC (c.f. the output of the command below).
 ```
 echo "https://$(dfx canister id stripe_frontend --ic).icp0.io/?check_out_session_id={CHECKOUT_SESSION_ID}"
 ```

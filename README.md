@@ -27,6 +27,8 @@ Here is a pointer to the [code snippets](https://github.com/cycle-express/cycle-
 
 ## Method 2: canister calls Stripe to lookup checkout session
 
+This approach is implemented by this repository.
+
 For local deployment:
 
 1. Make sure dfx has been started locally. If not run 

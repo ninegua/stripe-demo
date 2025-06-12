@@ -21,6 +21,10 @@ They both have downsides:
 
 ## Method 1: Stripe notifies canister via a webhook
 
+This approach is implemented by [cycle.express], a website that accepts credit card payments to help you top-up canister cycles.
+
+Here is a pointer to the [code snippets](https://github.com/cycle-express/cycle-express/blob/main/src/backend/Util.mo#L170-L202) that verify stripe signature.
+
 ## Method 2: canister calls Stripe to lookup checkout session
 
 For local deployment:
@@ -81,3 +85,4 @@ dfx deploy --ic stripe_backend --argument '(record { \
 ```
 
 [idempotent proxy]: https://github.com/ldclabs/idempotent-proxy
+[cycle.express]: https://github.com/cycle-express/cycle-express
